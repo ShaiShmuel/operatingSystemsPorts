@@ -43,23 +43,21 @@ int checkPrime(int n) {
 	int flag = 0;
 	int i = 0;
 
-	for (i = 2; i <= n / 2; ++i) {
+	for (i = 2; i <= sqrt(n); i++) {
 
-		// condition for non-prime
+		// If n is divisible by any number between 
+		// 2 and n/2, it is not prime 
 		if (n % i == 0) {
-			flag = 1;
-			return 0;
-			exit(0);
+			flag = 0;
+			break;
 		}
-
-
-		else {
-			if (flag == 0)
-				return 1;//is a prime number"
-			else
-				return 0;//is not a prime number"
-		}
-
-		return 0;
 	}
+
+	if (flag == 1) {
+		return 1;
+	}
+	else
+		return 0;
+
+	return 0;
 }

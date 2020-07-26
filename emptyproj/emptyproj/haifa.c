@@ -28,10 +28,6 @@ int main(int argc, char* argv[])
 	PROCESS_INFORMATION pi;
 	//char num[BUFFER_SIZE];
 	CHAR buffer[BUFFER_SIZE];
-	//printf("Please enter the num of ships: ");
-	//fgets(num, 50, stdin);
-	//printf("child message ===> %s", num);
-	//num[strlen(num) - 1] = '\0';
 
 	DWORD written, read;
 
