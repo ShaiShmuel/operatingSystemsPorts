@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 {
 
 	if (argc <= 1) {
-		printf("You didd not feed me arguments, I will die now :( ...");
+		printf("You did not feed me arguments, I will die now :( ...");
 		exit(1);
 	}  //otherwise continue on our merry way....
     int arg1 = atoi(argv[1]);
@@ -20,7 +20,6 @@ int main(int argc, char* argv[])
 		printf("Ships number should be between 2 to 50!!!! ----> ending process");
 		exit(1);
 	}
-
 
 	char ProcessName[256];
 	HANDLE StdInRead, StdInWrite;
@@ -67,7 +66,7 @@ int main(int argc, char* argv[])
 
 	/* we do not want the child to inherit the write end of the pipe */
 	SetHandleInformation(StdInWrite, HANDLE_FLAG_INHERIT, 0);
-	strcpy(ProcessName, "C:\\Users\\shais\\OneDrive\\Documents\\מדמח שנה ב סמסטר ב\\הנדסת מערכות תוכנה\\assignments\\ex3\\ReverseCaseChild.exe");
+	strcpy(ProcessName, "C:\\Users\\shais\\OneDrive\\Documents\\GitHub\\SYSTEM\\EilatPort\\EilatPort.exe");
 
 	// Start the child process.
 	if (!CreateProcessA(ProcessName,   // No module name (use command line).
@@ -89,14 +88,17 @@ int main(int argc, char* argv[])
 
 	/* Haifa port now sends ships to the pipe(souze) */
 	if (!WriteFile(StdInWrite, arg1, BUFFER_SIZE, &written, NULL))
-		printf(stderr, "Error writing to pipe-father\n");
+		fprintf(stderr, "Error writing to pipe-father\n");
 
 	/* wait for the Eilat to exit */
 	WaitForSingleObject(pi.hProcess, INFINITE);
 
-	/*Read from Eilat*/
+	/*Read response from Eilat*/
 	if (ReadFile(StdOutRead, buffer, BUFFER_SIZE, &read, NULL)) {
-		printf("Parent message ==> %s", buffer);
+		if(!buffer)
+			printf("Sorry, you cant send %s ships to eilat port!", buffer);
+
+
 
 	}
 	else {
