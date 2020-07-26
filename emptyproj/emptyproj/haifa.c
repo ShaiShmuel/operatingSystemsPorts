@@ -66,11 +66,11 @@ int main(int argc, char* argv[])
 
 	/* we do not want the child to inherit the write end of the pipe */
 	SetHandleInformation(StdInWrite, HANDLE_FLAG_INHERIT, 0);
-	strcpy(ProcessName, "C:\\Users\\shais\\OneDrive\\Documents\\GitHub\\SYSTEM\\EilatPort\\EilatPort.exe");
+	wcscpy(ProcessName, L"..\\..\\EilatPort\\Debug\\eilatPort.exe");
 
 	// Start the child process.
-	if (!CreateProcessA(ProcessName,   // No module name (use command line).
-		GetCommandLineA, // Command line.
+	if (!CreateProcessW(ProcessName,   // No module name (use command line).
+		GetCommandLineW, // Command line.
 		NULL,             // Process handle not inheritable.
 		NULL,             // Thread handle not inheritable.
 		TRUE,            // inherite handle.
@@ -84,10 +84,11 @@ int main(int argc, char* argv[])
 		fprintf(stderr, "Process Creation Failed\n");
 		return -1;
 	}
+	sprintf(buffer, "%d", arg1);
 
 
 	/* Haifa port now sends ships to the pipe(souze) */
-	if (!WriteFile(StdInWrite, arg1, BUFFER_SIZE, &written, NULL))
+	if (!WriteFile(StdInWrite, buffer, BUFFER_SIZE, &written, NULL))
 		fprintf(stderr, "Error writing to pipe-father\n");
 
 	/* wait for the Eilat to exit */
@@ -95,9 +96,10 @@ int main(int argc, char* argv[])
 
 	/*Read response from Eilat*/
 	if (ReadFile(StdOutRead, buffer, BUFFER_SIZE, &read, NULL)) {
-		if(!buffer)
-			printf("Sorry, you cant send %s ships to eilat port!", buffer);
-
+		if (atoi(buffer))
+			printf("Sorry, you cant send %d ships to eilat port!", arg1);
+		else
+			printf("Lets RoCk!");
 
 
 	}
