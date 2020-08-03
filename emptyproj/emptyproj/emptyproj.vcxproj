@@ -23,6 +23,7 @@
     <ProjectGuid>{A3D85C8E-FE07-4460-81D8-D428192CF277}</ProjectGuid>
     <RootNamespace>emptyproj</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>haifaPort</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
